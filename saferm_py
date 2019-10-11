@@ -1,0 +1,139 @@
+#! /usr/bin/env python
+import sys
+import os
+import time
+import random
+from os.path import expanduser
+
+home_d = expanduser("~")
+
+def main():
+
+    now_flag = False
+    all_flag = False
+###########################################
+
+    if len(sys.argv) == 1:
+        print("Error:Delete location is empty !")
+        return -1
+
+
+    try:
+        KEEP_TIME_LONG = int(sys.argv[1])
+        KEEP_TIME_INSTANT = int(sys.argv[2])
+    except:
+        print('Error:Please use INT to set KEEP_TIME_LONG or KEEP_TIME_INSTANT!')
+
+
+###################################################
+    current_foler = os.getcwd()
+    current_list = os.listdir(current_foler)
+    current_num = 0
+    for ind, item in enumerate(current_list):
+        if '.' is item[0]:
+            continue
+        current_num += 1
+    all_par = sys.argv[3:]
+
+
+
+    if '-now' in all_par:
+        now_flag = True
+        all_par.remove('-now')
+
+    if '-all' in all_par:
+        all_flag = True
+        all_par.remove('-all')
+
+    if len(all_par) >= current_num and len(all_par) != 1 and not all_flag:
+        print('Error: You may use *, or cross device deletion')
+        return -1
+
+#################################################
+    for ind, item in enumerate(all_par):
+        if '/' in item[:-1]  or '/' is item:
+            print("Error:No cross device deletion!")
+            return -1
+
+    all_par_full = [current_foler + '/' + x for x in all_par]
+
+#####################################################
+#      for ind, item in enumerate(all_par):
+        #  print(item)
+        #  if '.' not in item or True:
+            #  all_folder_num = item.count('/')
+            #  if all_folder_num <= 1000:
+                #  ask = raw_input('ADELETE?')
+                #  if not (ask is 'y' or ask is 'Y'):
+                    #  return -1
+#      print(all_par[-1]),
+    #  if sys.version_info[0] < 3:
+        #  ask = raw_input('DELETE?')
+    #  else:
+        #  ask = input('DELETE?')
+
+#########################################################
+    now_ts = int(time.time())
+    tmp_folder = './.saferm_' + str(now_ts) + '_' + str(random.randint(1, 1000)) + '/'
+    os.mkdir(tmp_folder)
+
+    file_1 = open(home_d + '/.my_deletion.txt', 'a')
+    file_1.write(current_foler + tmp_folder[1:] + '\n')
+    file_1.close()
+
+    for ind, item in enumerate(all_par_full):
+        simple_item = all_par[ind]
+        try:
+            os.rename(item, tmp_folder + simple_item)
+        except:
+            print('ERROR: No such file "' + simple_item + '"! Or permission denied!')
+            continue
+    delete(tmp_folder,KEEP_TIME_LONG, KEEP_TIME_INSTANT, now_flag)
+
+
+
+def delete(tmp_folder,keep_time_long, keep_time_instant, now_flag):
+
+    if not now_flag:
+        time.sleep(keep_time_long)
+    else:
+        time.sleep(keep_time_instant)
+    if os.path.exists(tmp_folder):
+
+        try:
+            os.system('rm -r ' + tmp_folder)
+        except:
+            return
+
+        all_history_del = []
+        file_2 = open(home_d + '/.my_deletion.txt', 'r')
+        all_history = file_2.readlines()
+        file_2.close()
+
+        if all_history == []:
+            return
+        for item in all_history:
+            if tmp_folder[1:] in item:
+                continue
+            all_history_del.append(item)
+
+        file_3 = open(home_d + '/.my_deletion.txt', 'w')
+        for item in all_history_del:
+            file_3.write(item)
+        file_3.close()
+
+if __name__=='__main__':
+    main()
+
+#  def remove_all_tmp_file():
+
+    #  file_2 = open(home_d + '/.my_deletion.txt', 'r')
+    #  all_history = file_2.readlines()
+    #  file_2.close()
+
+    #  if all_history == []:
+        #  return
+    #  for item in all_history:
+        #  item = item.strip()
+        #  if os.path.exists(item):
+            #  os.system('rm -r ' + item)

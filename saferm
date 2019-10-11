@@ -1,0 +1,23 @@
+#! /bin/bash
+
+KEEP_TIME_LONG=604800
+KEEP_TIME_INSTANT=30
+
+if [[ "$*" == *-now\ * ]];then
+    echo Do you want to delete "(" ${*:2} ")" now?" (Y/y/N/n)"
+    read now_confirm
+
+    if [[ $now_confirm == 'y' ]] || [[ $now_confirm == 'Y' ]];then
+        a=1
+    else
+        exit
+    fi
+fi
+
+
+
+python /home/ztq/data/antispoofing/util/scripts/saferm/saferm_py $KEEP_TIME_LONG $KEEP_TIME_INSTANT  ${*:1} & 
+
+if [[ $now_confirm == 'y' ]] || [[ $now_confirm == 'Y' ]];then
+    echo "It will be deleted in 30s. If you REGRET please use ---> kill -9" $!
+fi
