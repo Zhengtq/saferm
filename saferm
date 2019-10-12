@@ -14,9 +14,8 @@ if [[ "$*" == *-now\ * ]];then
     fi
 fi
 
-
-
-python /home/ztq/data/antispoofing/util/scripts/git_saferm/saferm/saferm_py $KEEP_TIME_LONG $KEEP_TIME_INSTANT  ${*:1} & 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+python $DIR/saferm_py $KEEP_TIME_LONG $KEEP_TIME_INSTANT  ${*:1} & 
 
 if [[ $now_confirm == 'y' ]] || [[ $now_confirm == 'Y' ]];then
     echo "It will be deleted in $KEEP_TIME_INSTANT s. If you REGRET please use ---> kill -9" $!
