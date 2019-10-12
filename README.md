@@ -8,8 +8,27 @@ After you clone our project, there are two ways to use it
 To put the two scripts in your /usr/bin/ folder, then to alias rm='saferm' to use it.
 ### Second way
 To put the two scripts in wherevery you want, then to add the path to your PATH system environment. Finally to alias rm='saferm' to use it.
+### The useful command
+To delete a file.
+```bash
+rm xxx
+```
+The file xxx will keep in serveral days.
+
+To delete a file right now.
+```bash
+rm -now yyy
+```
+The file yyy will keep in a very short time.
+
+For safety concerns, to use * to delete is restricted.If you want to use 'rm * ' to delete everything in your folder, you can use the following command.
+```bash
+rm -all *
+```
 
 # Personal Customization
+Firstly you can decide how long you want to the deleted file to be kept. You can edit the 'saferm' file, then modify the 'KEEP_TIME_LONG' variable to the time(second) you want to set.
+If you want to delete the file right now, you can set the variable 'KEEP_TIME_INSTANT' in the script 'saferm'.
 
 
 
