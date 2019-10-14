@@ -30,7 +30,8 @@ rm -all *
 Firstly you can decide how long you want to the deleted file to be kept. You can edit the 'saferm' file, then modify the 'KEEP_TIME_LONG' variable to the time(second) you want to set.
 If you want to delete the file right now, you can set the variable 'KEEP_TIME_INSTANT' in the script 'saferm'.
 
-
+# Check the deletion history
+A '.my_deletion.txt' text will be established once you firstly use saferm. And the location of the text is in your home dir, so you can locate this text by 'ls ~/.my_deletion.txt'.Everytime when you delete a file, a recored would be written in this text. And once that is finally being deleted, the correponded history will be removed also.
 
 
 
