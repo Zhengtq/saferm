@@ -19,7 +19,7 @@ To delete a file right now.
 ```bash
 rm -now yyy
 ```
-The file yyy will keep in a very short time.
+The file yyy will keep in a very short time(Which depends on your appointament).
 
 For safety concerns, to use * to delete is restricted.If you want to use 'rm * ' to delete everything in your folder, you can use the following command.
 ```bash
@@ -28,10 +28,10 @@ rm -all *
 
 # Personal Customization
 Firstly you can decide how long you want to the deleted file to be kept. You can edit the 'saferm' file, then modify the 'KEEP_TIME_LONG' variable to the time(second) you want to set.
-If you want to delete the file right now, you can set the variable 'KEEP_TIME_INSTANT' in the script 'saferm'.
+If you want to delete the file right now, you can set the variable 'KEEP_TIME_INSTANT' in the script 'saferm' to determine the short time you want to keep.
 
 # Check the deletion history
-A '.my_deletion.txt' text will be established once you firstly use saferm. And the location of the text is in your home dir, so you can locate this text by 'ls ~/.my_deletion.txt'.Everytime when you delete a file, a recored would be written in this text. And once that is finally being deleted, the correponded history will be removed also.
+A '.my_deletion.txt' text will be established once you firstly use saferm. And the location of the text is in your home dir, so you can locate this text by 'ls ~/.my_deletion.txt'.Everytime when you delete a file, a recored would be written in this text. And once that file is finally being deleted, the correponded history will be removed also.
 
 
 
