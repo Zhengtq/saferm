@@ -13,7 +13,7 @@ def main():
     all_flag = False
 ###########################################
 
-    if len(sys.argv) == 1:
+    if len(sys.argv) <= 3:
         print("Error:Delete location is empty !")
         return -1
 
@@ -36,7 +36,6 @@ def main():
     all_par = sys.argv[3:]
 
 
-
     if '-now' in all_par:
         now_flag = True
         all_par.remove('-now')
@@ -44,6 +43,11 @@ def main():
     if '-all' in all_par:
         all_flag = True
         all_par.remove('-all')
+
+    if '-check' in all_par:
+        check_del()
+        return -2
+
 
     if len(all_par) >= current_num and len(all_par) != 1 and not all_flag:
         print('Error: You may use *, or cross device deletion')
@@ -99,8 +103,6 @@ def delete(tmp_folder,keep_time_long, keep_time_instant, now_flag):
     else:
         time.sleep(keep_time_instant)
     if os.path.exists(tmp_folder):
-
-
         if '.saferm_' not in tmp_folder:
             return
 
@@ -125,6 +127,44 @@ def delete(tmp_folder,keep_time_long, keep_time_instant, now_flag):
         for item in all_history_del:
             file_3.write(item)
         file_3.close()
+
+
+def check_del():
+
+
+    file_2 = open(home_d + '/.my_deletion.txt', 'r')
+    all_history = file_2.readlines()
+    file_2.close()
+
+    last_history = []
+    for ind, item in enumerate(all_history):
+
+        delete_folder = item.strip()
+
+        if '.saferm_' not in delete_folder:
+            last_history.append(delete_folder + '\n')
+            continue
+
+        if not os.path.exists(delete_folder):
+            last_history.append(delete_folder + '\n')
+            continue
+        try:
+            os.system('rm -r ' + delete_folder)
+        except:
+            last_history.append(delete_folder + '\n')
+
+    if last_history == []:
+        return -3
+
+    file_3 = open(home_d + '/.my_deletion.txt', 'w')
+    for item in last_history:
+        file_3.write(item)
+        file_3.close()
+
+
+    return 0
+
+
 
 if __name__=='__main__':
     main()
