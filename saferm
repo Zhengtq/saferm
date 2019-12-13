@@ -1,7 +1,7 @@
 #! /bin/bash
 
 ########SET Variables###########
-KEEP_TIME_LONG=604800  ########Long kept variables#######
+KEEP_TIME_LONG=259200  ########Long kept variables#######
 KEEP_TIME_INSTANT=30   ########Short kept variables#########
 ###################################
 
